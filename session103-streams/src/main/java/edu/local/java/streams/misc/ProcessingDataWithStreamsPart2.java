@@ -2,10 +2,13 @@ package edu.local.java.streams.misc;
 
 import java.lang.invoke.MethodHandles;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -42,6 +45,18 @@ public class ProcessingDataWithStreamsPart2 {
 		System.out.println("Total val: " + totalValue);
 	}
 	
+	/**
+	 * 
+	 */
+	public void testMaxByOnCollect() {
+		System.out.println("Calling: " + Thread.currentThread().getStackTrace()[1].getMethodName());
+		final List<Transaction> exampleData = ProcessingDataWithStreamsPart2.initTestData();
+		printExampleData(exampleData);
+		Optional<Transaction> maxTransaction = exampleData.stream().collect(Collectors.maxBy(Comparator.comparing(Transaction::getValue)));
+		System.out.println("Result: ");
+		System.out.println("Max transaction: " + (maxTransaction.isPresent() ? maxTransaction.get() : "none"));
+	}
+	
 	public static List<Transaction> initTestData() {
 		Random idGen = new Random(7843);
 		Random valGen = new Random(513);
@@ -68,9 +83,10 @@ public class ProcessingDataWithStreamsPart2 {
 		// exampleData.stream().forEach(System.out::println);
 		
 		ProcessingDataWithStreamsPart2 example = new ProcessingDataWithStreamsPart2();
-		//example.testCollectToHashSet();
+		// example.testCollectToHashSet();
+		// example.testSumOnCollect();
 		
-		example.testSumOnCollect();
+		example.testMaxByOnCollect();
 	}
 }
 
