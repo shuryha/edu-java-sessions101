@@ -1,0 +1,16 @@
+The JDK contains many terminal operations (such as average, sum, min, max, and count) that return one value by combining 
+the contents of a stream. These operations are called reduction operations. The JDK also contains reduction operations 
+that return a collection instead of a single value. Many reduction operations perform a specific task, such as finding 
+the average of values or grouping elements into categories. However, the JDK provides you with the general-purpose reduction 
+operations reduce and collect, which this section describes in detail.
+The reduce operation always returns a new value. However, the accumulator function also returns a new value every time 
+it processes an element of a stream. Suppose that you want to reduce the elements of a stream to a more complex object, 
+such as a collection. This might hinder the performance of your application. If your reduce operation involves adding 
+elements to a collection, then every time your accumulator function processes an element, it creates a new collection 
+that includes the element, which is inefficient. It would be more efficient for you to update an existing collection instead. 
+You can do this with the Stream.collect method, which the next section describes.
+Unlike the reduce method, which always creates a new value when it processes an element, the collect method modifies, or mutates, an existing value.
+Consider how to find the average of values in a stream. You require two pieces of data: the total number of values and the sum of those values. 
+However, like the reduce method and all other reduction methods, the collect method returns only one value. 
+You can create a new data type that contains member variables that keep track of the total number of values and the sum of those values, 
+such as the following class, Averager:
