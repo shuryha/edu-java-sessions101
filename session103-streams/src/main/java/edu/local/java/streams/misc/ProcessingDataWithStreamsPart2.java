@@ -30,6 +30,18 @@ public class ProcessingDataWithStreamsPart2 {
 		System.out.println(resCities);
 	}
 	
+	/**
+	 * 
+	 */
+	public void testSumOnCollect() {
+		System.out.println("Calling: " + Thread.currentThread().getStackTrace()[1].getMethodName());
+		final List<Transaction> exampleData = ProcessingDataWithStreamsPart2.initTestData();
+		printExampleData(exampleData);
+		Long totalValue = exampleData.stream().collect(Collectors.summingLong(Transaction::getValue));
+		System.out.println("Result: ");
+		System.out.println("Total val: " + totalValue);
+	}
+	
 	public static List<Transaction> initTestData() {
 		Random idGen = new Random(7843);
 		Random valGen = new Random(513);
@@ -56,7 +68,9 @@ public class ProcessingDataWithStreamsPart2 {
 		// exampleData.stream().forEach(System.out::println);
 		
 		ProcessingDataWithStreamsPart2 example = new ProcessingDataWithStreamsPart2();
-		example.testCollectToHashSet();
+		//example.testCollectToHashSet();
+		
+		example.testSumOnCollect();
 	}
 }
 
